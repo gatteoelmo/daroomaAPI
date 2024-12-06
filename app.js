@@ -3,11 +3,13 @@ import { connectDB } from './config/db.js'
 import dotenv from 'dotenv'
 import userRoute from './routes/userRoute.js'
 import goalRoute from './routes/goalRoute.js'
+import cors from 'cors'
 
 dotenv.config();
 
 connectDB();
 
+app.use(cors());
 const app = express();
 app.use(express.json());
 
