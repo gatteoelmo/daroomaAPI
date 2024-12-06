@@ -1,0 +1,56 @@
+### create an account
+POST http://localhost:1234/api/users/register
+Content-Type: application/json
+
+{
+    "name": "Simo",
+    "email": "simo@me.com",
+    "password": "simo"
+}
+
+### login
+POST http://localhost:1234/api/users/login
+Content-Type: application/json
+
+{
+    "email": "simo@me.com",
+    "password": "simo"
+}
+
+### get all all users
+GET http://localhost:1234/api/users/all
+
+### get user by id
+GET http://localhost:1234/api/users/byId/6744a534d2214a3899e4eee6
+
+### delete user by id
+DELETE http://localhost:1234/api/users/delete/6740b4ba9d21c3faaff6a4b1
+
+### update user by id
+PATCH http://localhost:1234/api/users/modify/6740b562a1715eb7ea60258e
+Content-Type: application/json
+
+{
+    "password": "Ellie17"
+}
+
+### get all goals
+GET http://localhost:1234/api/goals/
+
+### create goal
+POST http://localhost:1234/api/goals/create
+Content-Type: application/json
+
+{
+    "user": "6744a534d2214a3899e4eee6",
+    "title": "prova goal simo 2",
+    "description": "goal prova",
+    "difficulty": "hard",
+    "deadline": "2024-11-23"
+}
+
+### user home
+GET http://localhost:1234/api/goals/userHome/6744a534d2214a3899e4eee6
+
+### success goal
+PATCH http://localhost:1234/api/goals/success/6744b63e419de90844e7140b
