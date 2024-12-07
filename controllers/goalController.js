@@ -3,13 +3,7 @@ import User from "../models/userModel.js";
 
 export const GoalController = {
     createGoal: async (req, res) => {
-        const { user, title, description, difficulty, deadline } = req.body;
-        const userExists = await User.findById(user);
-        // console.log(user);
-
-        if (!userExists) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+        const { title, description, difficulty, deadline } = req.body;
       
         try {
             let xp;
@@ -27,20 +21,11 @@ export const GoalController = {
                   xp = 5;
             };
 
-            const goal = new Goal({user, title, description, difficulty, xp, deadline});
+            const goal = new Goal({user: req.user.id, title, description, difficulty, xp, deadline});
             await goal.save();
             res.status(201).json(goal);
         }  catch (error) {
-            res.status(500).json({ message: 'Errore del server' });
-        }
-    },
-
-    getAllGoals: async (req, res) => {
-        try {
-            const goals = await Goal.find();
-            res.status(200).json(goals);
-        } catch (error) {
-            res.status(500).json({ message: 'Errore del server' });
+            res.status(500).json({ message: 'Sorry but we have an intern problem man' });
         }
     },
 
@@ -57,13 +42,11 @@ export const GoalController = {
 
     userGoals: async (req, res) => {
         try {
-            const user = req.params.id;
-            const goals = await Goal.find({ user });
-            console.log(user);
+            const goals = await Goal.find({ user: req.user.id });
             res.status(200).json(goals);
-        } catch (error) {
-          res.status(500).json({ message: 'Errore del server' });
-        }
+          } catch (error) {
+            res.status(500).json({ message: 'Errore del server' });
+          }
       },
 
     successGoal: async (req, res) => {

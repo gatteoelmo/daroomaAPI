@@ -34,9 +34,6 @@ Content-Type: application/json
     "password": "Ellie17"
 }
 
-### get all goals
-GET http://localhost:1234/api/goals/
-
 ### create goal
 POST http://localhost:1234/api/goals/create
 Content-Type: application/json
