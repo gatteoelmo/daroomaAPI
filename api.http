@@ -13,8 +13,8 @@ POST http://localhost:1234/api/users/login
 Content-Type: application/json
 
 {
-    "email": "simo@me.com",
-    "password": "simo"
+    "email": "pinco@me.com",
+    "password": "pinco"
 }
 
 ### get all all users
@@ -39,8 +39,7 @@ POST http://localhost:1234/api/goals/create
 Content-Type: application/json
 
 {
-    "user": "6744a534d2214a3899e4eee6",
-    "title": "prova goal simo 2",
+    "title": "ciao mondo da pinco",
     "description": "goal prova",
     "difficulty": "hard",
     "deadline": "2024-11-23"
