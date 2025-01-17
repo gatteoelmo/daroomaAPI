@@ -49,4 +49,4 @@ Content-Type: application/json
 GET http://localhost:1234/api/goals/userHome/6744a534d2214a3899e4eee6
 
 ### success goal
-PATCH http://localhost:1234/api/goals/success/6744b63e419de90844e7140b
+PATCH http://localhost:1234/api/goals/success/6788f9cf7ff06a70006b5309

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/create', authMiddleware, GoalController.createGoal);
 router.get('/userDashboard', authMiddleware, GoalController.userGoals);
-router.patch('/success/:id', GoalController.successGoal);
-router.patch('/modify/:id', GoalController.modifyGoal);
+router.patch('/success/:id', authMiddleware, GoalController.successGoal);
+router.patch('/modify/:id', authMiddleware, GoalController.modifyGoal);
 
 export default router;
