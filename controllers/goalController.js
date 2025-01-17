@@ -58,7 +58,7 @@ export const GoalController = {
             return res.status(401).json({ message: 'Unauthorized' });
         }
 
-        goal.completed = true;  
+        goal.completed = !goal.completed;  
         await goal.save();
         res.status(200).json({ message: 'Goal completed successfully' });
         } catch (error) {
