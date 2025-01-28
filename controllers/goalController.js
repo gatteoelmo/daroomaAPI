@@ -65,4 +65,14 @@ export const GoalController = {
             res.status(500).json({ message: 'Errore del server' });
         }
     },
+
+    deleteGoal: async (req, res) => {
+        try {
+            const goal = await Goal.findByIdAndDelete(req.params.id);
+            if (!goal) return res.status(404).json({ message: 'Goal not found' });
+            res.status(200).json({ message: 'Goal deleted successfully' });
+        } catch (error) {
+            res.status(500).json({ message: 'Errore del server' });
+        }
+    }
 }

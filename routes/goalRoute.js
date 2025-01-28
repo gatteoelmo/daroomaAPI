@@ -8,5 +8,6 @@ router.post('/create', authMiddleware, GoalController.createGoal);
 router.get('/userDashboard', authMiddleware, GoalController.userGoals);
 router.patch('/success/:id', authMiddleware, GoalController.successGoal);
 router.patch('/modify/:id', authMiddleware, GoalController.modifyGoal);
+router.delete('/delete/:id', authMiddleware, GoalController.deleteGoal);
 
 export default router;
