@@ -49,22 +49,46 @@ export const GoalController = {
           }
       },
 
-    successGoal: async (req, res) => {
+      successGoal: async (req, res) => {
         try {
-        const goal = await Goal.findById(req.params.id);
-        if (!goal) return res.status(404).json({ message: 'Goal not found' });
-
-        if (goal.user.toString() !== req.user.id) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-
-        goal.completed = !goal.completed;  
-        await goal.save();
-        res.status(200).json({ message: 'Goal completed successfully' });
+            const goal = await Goal.findById(req.params.id);
+            
+            if (!goal) return res.status(404).json({ message: 'Goal not found' });
+    
+            if (goal.user.toString() !== req.user.id) {
+                return res.status(401).json({ message: 'Unauthorized' });
+            }
+    
+            // Inverti lo stato di completamento
+            goal.completed = !goal.completed;  
+    
+            // Trova l'utente associato
+            const user = await User.findById(req.user.id);
+            if (!user) return res.status(404).json({ message: 'User not found' });
+    
+            // Aggiungi XP all'utente solo se l'obiettivo viene completato
+            if (goal.completed) {
+                user.xp += goal.xp_guadagnati;
+            } else {
+                // Se il completamento viene annullato, sottrai l'XP guadagnato
+                user.xp -= goal.xp_guadagnati;
+                if (user.xp < 0) user.xp = 0; // Evita che l'XP vada sotto zero
+            }
+    
+            // Salva le modifiche
+            await goal.save();
+            await user.save();
+    
+            res.status(200).json({ 
+                message: goal.completed ? 'Goal completed successfully' : 'Goal marked as incomplete',
+                xp: user.xp, 
+                goal 
+            });
         } catch (error) {
             res.status(500).json({ message: 'Errore del server' });
         }
     },
+    
 
     deleteGoal: async (req, res) => {
         try {
